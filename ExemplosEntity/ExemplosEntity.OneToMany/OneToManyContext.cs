@@ -21,7 +21,7 @@ namespace ExemplosEntity.OneToMany
             modelBuilder.Entity<Desenvolvedor>()
                 .HasOne(d => d.Projeto)
                 .WithMany()
-                .HasForeignKey(d => d.ProjetoId);
+                .HasForeignKey("ProjetoId");
 
             // configura Entidade Projeto
             modelBuilder.Entity<Projeto>()

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExemplosEntity.OneToMany.Migrations
 {
     [DbContext(typeof(OneToManyContext))]
-    [Migration("20210609025918_OneToMany")]
+    [Migration("20210609033416_OneToMany")]
     partial class OneToMany
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,7 +30,7 @@ namespace ExemplosEntity.OneToMany.Migrations
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ProjetoId")
+                    b.Property<Guid?>("ProjetoId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -58,9 +58,7 @@ namespace ExemplosEntity.OneToMany.Migrations
                 {
                     b.HasOne("ExemplosEntity.OneToMany.Projeto", "Projeto")
                         .WithMany()
-                        .HasForeignKey("ProjetoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProjetoId");
 
                     b.Navigation("Projeto");
                 });

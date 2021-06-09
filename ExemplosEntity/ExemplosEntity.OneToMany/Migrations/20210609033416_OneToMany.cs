@@ -25,7 +25,7 @@ namespace ExemplosEntity.OneToMany.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProjetoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ProjetoId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -35,7 +35,7 @@ namespace ExemplosEntity.OneToMany.Migrations
                         column: x => x.ProjetoId,
                         principalTable: "Projetos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

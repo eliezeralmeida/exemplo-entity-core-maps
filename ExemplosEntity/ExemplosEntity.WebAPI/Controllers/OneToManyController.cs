@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using ExemplosEntity.OneToMany;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExemplosEntity.WebAPI.Controllers
 {
@@ -32,6 +33,39 @@ namespace ExemplosEntity.WebAPI.Controllers
             await _dbContext.SaveChangesAsync();
 
             return Ok(desenvolvedor);
+        }
+
+        [HttpPut]
+        [Route("")]
+        public async Task<IActionResult> Put()
+        {
+            var desenvolvedor = await _dbContext.Desenvolvedores.FirstAsync();
+            var projeto = await _dbContext.Projetos.FirstAsync();
+
+            desenvolvedor.Projeto = null;
+            _dbContext.Entry(desenvolvedor).State = EntityState.Modified;
+
+            await _dbContext.SaveChangesAsync();
+
+            desenvolvedor.Projeto = projeto;
+            _dbContext.Entry(desenvolvedor).State = EntityState.Modified;
+
+            await _dbContext.SaveChangesAsync();
+
+            return Ok(desenvolvedor);
+        }
+
+
+        [HttpGet]
+        [Route("")]
+        public async Task<IActionResult> GetAll()
+        {
+            var desenvovledores = await _dbContext.Desenvolvedores
+                .AsNoTrackingWithIdentityResolution()
+                .Include(d => d.Projeto)
+                .ToListAsync();
+
+            return Ok(desenvovledores);
         }
     }
 }

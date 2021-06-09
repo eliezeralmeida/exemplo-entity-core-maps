@@ -28,7 +28,7 @@ namespace ExemplosEntity.OneToMany.Migrations
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ProjetoId")
+                    b.Property<Guid?>("ProjetoId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -56,9 +56,7 @@ namespace ExemplosEntity.OneToMany.Migrations
                 {
                     b.HasOne("ExemplosEntity.OneToMany.Projeto", "Projeto")
                         .WithMany()
-                        .HasForeignKey("ProjetoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProjetoId");
 
                     b.Navigation("Projeto");
                 });
